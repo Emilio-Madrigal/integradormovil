@@ -5,6 +5,7 @@
     android:gravity="top"
     >
     <LinearLayout
+        android:background="@color/black"
         android:gravity="top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

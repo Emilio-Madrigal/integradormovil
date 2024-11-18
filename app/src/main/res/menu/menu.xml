@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:title="agregar tu comida"
+    android:id="@+id/agregar">
+
+</item>
+    <item
+        android:title="Ve tu informacion"
+        android:id="@+id/info">
+
+    </item>
+    <item
+        android:title="ve tu ingesta de nutrientes"
+        android:id="@+id/nutriinfo">
+
+    </item>
+    <item android:title="modifica tu informacion"
+        android:id="@+id/modify">
+
+    </item>
+    <item
+        android:icon="@drawable/logout"
+        android:title="cerrar sesion"
+        android:id="@+id/logout"
+        app:showAsAction="always">
+
+    </item>
+</menu>

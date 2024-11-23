@@ -1,6 +1,5 @@
 package com.example.integrador;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,7 +26,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class inicio extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     EditText user,password;
     Button loggin;
     SharedPreferences archivo;
@@ -63,7 +62,7 @@ public class inicio extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     if (response.getInt("usr") != -1) {
-                        Intent i = new Intent(inicio.this, MainActivity.class);// falta redirigir a la vista
+                        Intent i = new Intent(MainActivity.this, ingreso_comida.class);
                         SharedPreferences.Editor editor = archivo.edit();
                         editor.putInt("id_usuario", response.getInt("usr"));
                         editor.commit();
@@ -73,7 +72,7 @@ public class inicio extends AppCompatActivity {
                         user.setText("");
                         password.setText("");
                     }
-                    Toast.makeText(inicio.this, response.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -81,7 +80,7 @@ public class inicio extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(inicio.this, volleyError.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, volleyError.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 Log.d("yo", volleyError.getMessage());
             }
         });

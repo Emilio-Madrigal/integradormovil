@@ -24,6 +24,7 @@
 
         </TextView>
         <EditText
+            android:id="@+id/nombre"
             android:layout_width="30dp"
             android:layout_height="wrap_content">
 
@@ -42,6 +43,7 @@
 
             </TextView>
             <EditText
+                android:id="@+id/apellido"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content">
 
@@ -54,9 +56,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Spinner
+            android:id="@+id/spinner_gen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            ></Spinner>
+            android:layout_gravity="center"
+            android:entries="@array/genero">
+        </Spinner>
     </LinearLayout>
 
     <LinearLayout
@@ -70,6 +75,8 @@
 
         </TextView>
         <EditText
+            android:inputType="number"
+            android:id="@+id/edad"
             android:layout_width="30dp"
             android:layout_height="wrap_content">
 
@@ -87,6 +94,8 @@
 
         </TextView>
         <EditText
+            android:inputType="numberDecimal"
+            android:id="@+id/peso"
             android:layout_width="30dp"
             android:layout_height="wrap_content">
 
@@ -104,6 +113,8 @@
 
         </TextView>
         <EditText
+            android:inputType="number"
+            android:id="@+id/altura"
             android:layout_width="30dp"
             android:layout_height="wrap_content">
         </EditText>
@@ -115,9 +126,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Spinner
+            android:id="@+id/spinner_act"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            ></Spinner>
+            android:layout_gravity="center"
+            android:entries="@array/actividad">
+        </Spinner>
     </LinearLayout>
 
     <LinearLayout
@@ -131,6 +145,7 @@
 
         </TextView>
         <EditText
+            android:id="@+id/telefono"
             android:layout_width="30dp"
             android:layout_height="wrap_content">
 
@@ -148,6 +163,7 @@
 
         </TextView>
         <EditText
+            android:id="@+id/email"
             android:layout_width="30dp"
             android:layout_height="wrap_content">
 
@@ -160,12 +176,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Spinner
+            android:id="@+id/spinner_meta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            ></Spinner>
+            android:layout_gravity="center"
+            android:entries="@array/meta">
+        </Spinner>
     </LinearLayout>
 
-
     </LinearLayout>
+    <Button
+        android:id="@+id/guardarB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="guardar"
+        android:layout_gravity="center">
+
+    </Button>
 
 </LinearLayout>

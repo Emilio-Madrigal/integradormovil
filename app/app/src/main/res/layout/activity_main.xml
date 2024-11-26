@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar">
+
+    </include>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="25dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/NombreE"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/NEM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Puntos"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/PEM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></EditText>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/JuegosJ"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/JJEM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/JuegosG"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/JGEM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></EditText>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/JuegosE"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/JEEM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></EditText>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contacto"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/NCEM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/GuardarB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="guardardor"
+                android:text="guardar"></Button>
+
+            <Button
+                android:id="@+id/limpiarB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="limpieza"
+                android:text="Limpiar">
+
+            </Button>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

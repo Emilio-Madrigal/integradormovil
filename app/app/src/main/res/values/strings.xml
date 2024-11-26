@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">recyclerview</string>
+    <string name="Puntos">Puntos: </string>
+    <string name="JuegosJ">Juegos jugados: </string>
+    <string name="JuegosG">Juegos ganados: </string>
+    <string name="JuegosE">Juegos empatados: </string>
+    <string name="NombreE">Nombre Equipo: </string>
+    <string name="contacto">No. contactoE: </string>
+</resources>

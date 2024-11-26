@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">integrador</string>
+
+    <string-array name="genero">
+        <item >selecciona</item>
+        <item >Hombre</item>
+        <item >Mujer</item>
+    </string-array>
+
+
+    <string-array name="actividad">
+        <item >selecciona</item>
+        <item >sedentario</item>
+        <item >Moderado</item>
+        <item >Activo</item>
+    </string-array>
+
+    <string-array name="meta">
+        <item >selecciona</item>
+        <item >bajar de peso</item>
+        <item >mantener peso</item>
+        <item >aumentar peso</item>
+    </string-array>
 </resources>

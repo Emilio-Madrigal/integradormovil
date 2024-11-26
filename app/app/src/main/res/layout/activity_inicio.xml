@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".inicio"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -40,13 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ingresar">
-
-        </Button>
-        <Button
-            android:id="@+id/newaccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="crear cuenta">
 
         </Button>
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/ver"
+        android:title="Ver"/>
+    <item
+        android:id="@+id/registro"
+        android:title="Registro"/>
+    <item
+        android:id="@+id/creador"
+        android:title="creador"/>
+
+    <item
+        android:id="@+id/contacto"
+        android:title="contacto"/>
+    <item
+        android:id="@+id/Modificar"
+        android:title="modificar">
+    </item>
+    <item
+        android:id="@+id/eliminar"
+        android:title="Eliminar">
+
+    </item>
+    <item
+        android:icon="@drawable/logout"
+        android:title="cerrar"
+        android:id="@+id/cerrar"
+        app:showAsAction="always">
+
+    </item>
+</menu>

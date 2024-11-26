@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gris">#787575</color>
+    <color name="modificar">#C76E4B</color>
+    <color name="SigAnt">#228773</color>
+    <color name="delete">#EB3E72</color>
+
+
+</resources>

@@ -111,7 +111,7 @@ String Selecciongenero,Seleccionactividad,Seleccionmeta;
         unpaciente.setTelefono(telefono.getText().toString());
         unpaciente.setEmail(email.getText().toString());
         unpaciente.setMetaa(Seleccionmeta);
-        info.lista.add(unpaciente);
+        info.listapaciente.add(unpaciente);
 
         
         Toast.makeText(this, "Elementos guardados", Toast.LENGTH_SHORT).show();

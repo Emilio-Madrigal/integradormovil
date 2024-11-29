@@ -72,7 +72,7 @@ public class modify_user extends AppCompatActivity {
     }
 
     private void actualizar() {
-        paciente pacienteActual = info.lista.get(posicion);
+        paciente pacienteActual = info.listapaciente.get(posicion);
 
         // Actualizar los campos del paciente logueado
         pacienteActual.setEdad(edad.getText().toString());
@@ -87,7 +87,7 @@ public class modify_user extends AppCompatActivity {
     }
 
     private void mostrarpaciente() {
-        paciente pacienteActual = info.lista.get(posicion);
+        paciente pacienteActual = info.listapaciente.get(posicion);
 
         // Mostrar los valores actuales en los campos correspondientes
         edad.setText(pacienteActual.getEdad());

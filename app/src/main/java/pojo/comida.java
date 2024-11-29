@@ -2,7 +2,7 @@ package pojo;
 
 public class comida {
 
-    String nombre;
+    String nombreC;
     String calorias;
 
     public String getCalorias() {
@@ -14,10 +14,19 @@ public class comida {
     }
 
     public String getNombre() {
-        return nombre;
+        return nombreC;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombreC = nombre;
+    }
+
+    private boolean isChecked;
+    public boolean isChecked() {
+        return  isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked=checked;
     }
 }

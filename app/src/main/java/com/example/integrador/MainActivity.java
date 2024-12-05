@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     if (response.getInt("usr") != -1) {
-                        Intent i = new Intent(MainActivity.this, ingreso_comida.class);
+                        Intent i = new Intent(MainActivity.this, user_info.class);
                         SharedPreferences.Editor editor = archivo.edit();
                         editor.putInt("id_usuario", response.getInt("usr"));
                         editor.commit();

@@ -13,109 +13,59 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="wrap_content"
         app:cardElevation="25dp"
         app:cardCornerRadius="20dp">
-        <ImageView
-            android:src="@drawable/fondo"
-            android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:alpha=".30"
 
-            >
-
-        </ImageView>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="9dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre">
-
-                </TextView>
                 <EditText
                     android:id="@+id/nombre"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre"
+                    android:textColorHint="@color/black">
 
                 </EditText>
 
+
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="apellido">
-
-                </TextView>
                 <EditText
-                    android:id="@+id/apellido"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content">
-
-                </EditText>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <Spinner
-                    android:id="@+id/spinner_gen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:entries="@array/genero">
-                </Spinner>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Edad">
-
-                </TextView>
-                <EditText
-                    android:inputType="number"
                     android:id="@+id/edad"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="edad"
+                    android:textColorHint="@color/black">
 
                 </EditText>
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Peso (kg)">
-
-                </TextView>
                 <EditText
                     android:inputType="numberDecimal"
                     android:id="@+id/peso"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Peso (kg)"
+                    android:textColorHint="@color/black"
+                    >
 
                 </EditText>
 
@@ -124,18 +74,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="altura(cm)">
-
-                </TextView>
                 <EditText
                     android:inputType="number"
                     android:id="@+id/altura"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="altura(cm)"
+                    android:textColorHint="@color/black">
                 </EditText>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/telefono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="telefono"
+                    android:textColorHint="@color/black">
+
+                </EditText>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             </LinearLayout>
 
@@ -156,16 +125,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
+
+                <EditText
+                    android:id="@+id/citahora"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="telefono">
-
-                </TextView>
-                <EditText
-                    android:id="@+id/telefono"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content">
+                    android:hint="hora de cita"
+                    android:textColorHint="@color/black">
 
                 </EditText>
 
@@ -174,32 +140,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
+
+                <EditText
+                    android:id="@+id/citafecha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email">
-
-                </TextView>
-                <EditText
-                    android:id="@+id/email"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content">
-
+                    android:hint="fecha de cita"
+                    android:textColorHint="@color/black">
                 </EditText>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <Spinner
-                    android:id="@+id/spinner_meta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:entries="@array/meta">
-                </Spinner>
             </LinearLayout>
 
         </LinearLayout>
@@ -210,13 +159,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <Button
+            android:id="@+id/siguiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="siguiente"
+            >
+        </Button>
 
         <Button
             android:id="@+id/Modificar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Actualizar"
-            android:backgroundTint="@color/modificar">
+            >
+        </Button>
+        <Button
+            android:id="@+id/anterior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actualizar"
+            >
         </Button>
 
     </LinearLayout>

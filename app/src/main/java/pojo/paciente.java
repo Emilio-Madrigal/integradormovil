@@ -10,8 +10,24 @@ public class paciente {
     public String altura;
     public String actividad;
     public String telefono;
-    public String email;
-    public String metaa;
+    public String horac;
+    public String fechac;
+
+    public String getFechac() {
+        return fechac;
+    }
+
+    public void setFechac(String fechac) {
+        this.fechac = fechac;
+    }
+
+    public String getHorac() {
+        return horac;
+    }
+
+    public void setHorac(String horac) {
+        this.horac = horac;
+    }
 
     //getters y setters de usuario
     public String getActividad() {
@@ -46,28 +62,12 @@ public class paciente {
         this.edad = edad;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getGenero() {
         return genero;
     }
 
     public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public String getMetaa() {
-        return metaa;
-    }
-
-    public void setMetaa(String metaa) {
-        this.metaa = metaa;
     }
 
     public String getNombre() {
@@ -92,6 +92,15 @@ public class paciente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    private boolean isChecked;
+    public boolean isChecked() {
+        return  isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked=checked;
     }
 
 }

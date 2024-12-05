@@ -1,6 +1,6 @@
 package adaptador;
 
-import static global.info.listaComida;
+import static global.info.listapaciente;
 
 import android.content.Context;
 import android.view.View;
@@ -27,18 +27,18 @@ public class adaptadorelim extends RecyclerView.Adapter<adaptadorelim.activity> 
     @Override
     public void onBindViewHolder(@NonNull activity miniactivity, int i) {
         final int pos = i;
-        miniactivity.nombre.setText(listaComida.get(i).getNombre ());
-        miniactivity.check.setChecked(listaComida.get(i).isChecked());
+        miniactivity.nombre.setText(listapaciente.get(i).getNombre ());
+        miniactivity.check.setChecked(listapaciente.get(i).isChecked());
         miniactivity.check.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Guardar el estado del checkbox en el ArrayList
-            listaComida.get(pos).setChecked(isChecked);
+            listapaciente.get(pos).setChecked(isChecked);
         });
     }
 
     @Override
 
     public int getItemCount() {
-        return listaComida.size();
+        return listapaciente.size();
     }
     public class activity extends RecyclerView.ViewHolder {
         TextView nombre;

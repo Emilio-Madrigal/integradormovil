@@ -39,7 +39,7 @@ public Context context;
 
         public activity(@NonNull View itemView) {
             super(itemView);
-            hola = itemView.findViewById(R.id.nombreComida);
+            hola = itemView.findViewById(R.id.nombre);
 
         }
     }

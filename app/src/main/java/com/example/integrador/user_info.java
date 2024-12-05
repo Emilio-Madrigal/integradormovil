@@ -1,27 +1,49 @@
 package com.example.integrador;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.content.SharedPreferences;
+import android.widget.TimePicker;
 import android.widget.Toast;
-
+import androidx.appcompat.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Calendar;
+
 import global.info;
+import pojo.cita;
 import pojo.paciente;
 
 public class user_info extends AppCompatActivity {
-Spinner genero,actividad,meta;
+Spinner genero,actividad;
 Button guardar;
-EditText nombre,apellido,edad,peso,altura,telefono,email;
-String Selecciongenero,Seleccionactividad,Seleccionmeta;
+EditText nombre,apellido,edad,peso,altura,telefono,hora,fecha;
+String Selecciongenero,Seleccionactividad;
+Toolbar toolbar;
+SharedPreferences archivo;
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    cita dat=new cita ();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +54,8 @@ String Selecciongenero,Seleccionactividad,Seleccionmeta;
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        toolbar=findViewById (R.id.toolbar);
+        setSupportActionBar(toolbar);
         guardar=findViewById(R.id.guardarB);
 
         nombre=findViewById(R.id.nombre);
@@ -39,21 +63,54 @@ String Selecciongenero,Seleccionactividad,Seleccionmeta;
         peso=findViewById(R.id.peso);
         altura=findViewById(R.id.altura);
         telefono=findViewById(R.id.telefono);
-        email=findViewById(R.id.email);
         edad=findViewById(R.id.edad);
 
         genero=findViewById(R.id.spinner_gen);
         actividad=findViewById(R.id.spinner_act);
-        meta=findViewById(R.id.spinner_meta);
+
+        hora=findViewById (R.id.citahora);
+        fecha=findViewById (R.id.citafecha);
+
+        fecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int dia, mes, ayo;
+                Calendar actual=Calendar.getInstance();
+                dia=actual.get(Calendar.DAY_OF_MONTH);
+                mes=actual.get(Calendar.MONTH);
+                ayo=actual.get(Calendar.YEAR);
+
+                DatePickerDialog dialog = new DatePickerDialog(user_info.this, android.R.style.Theme_Holo_Dialog_MinWidth,
+                        mDateSetListener,ayo,mes,dia);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDateSetListener= new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayofMonth) {
+                dat.dia=dayofMonth;
+                dat.mes=month+1;
+                dat.Year=year;
+                String cadena;
+
+                cadena = " "+dat.dia+"/"+dat.mes+"/"+dat.Year;
+                fecha.setText(cadena);
+            }
+        };
+
+        hora.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {hora();
+
+            }
+        });
 
         genero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-
                 Selecciongenero = genero.getItemAtPosition(i).toString();//position es la que tienen el string de lo que se selecciono
-
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -65,30 +122,13 @@ String Selecciongenero,Seleccionactividad,Seleccionmeta;
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-
                 Seleccionactividad = actividad.getItemAtPosition(i).toString();
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-
-        meta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                Seleccionmeta = meta.getItemAtPosition(i).toString();
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         guardar.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -97,6 +137,7 @@ String Selecciongenero,Seleccionactividad,Seleccionmeta;
             }
         });
     }
+
     public void guardardor(){
         paciente unpaciente = new paciente();
 
@@ -109,8 +150,10 @@ String Selecciongenero,Seleccionactividad,Seleccionmeta;
         unpaciente.setAltura(altura.getText().toString());
         unpaciente.setActividad(Seleccionactividad);
         unpaciente.setTelefono(telefono.getText().toString());
-        unpaciente.setEmail(email.getText().toString());
-        unpaciente.setMetaa(Seleccionmeta);
+        unpaciente.setFechac (fecha.getText ().toString ());
+        unpaciente.setHorac (hora.getText ().toString ());
+
+
         info.listapaciente.add(unpaciente);
 
         
@@ -123,9 +166,87 @@ String Selecciongenero,Seleccionactividad,Seleccionmeta;
         peso.setText("");
         altura.setText("");
         telefono.setText("");
-        email.setText("");
+        fecha.setText ("");
+        hora.setText ("");
+
         genero.setSelection(0); 
         actividad.setSelection(0);
-        meta.setSelection(0);
+    }
+    private void hora() {
+        int hr, min;
+        Calendar actual = Calendar.getInstance();
+        hr = actual.get(Calendar.HOUR_OF_DAY);
+        min = actual.get(Calendar.MINUTE);
+
+        TimePickerDialog tpd = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourofday, int minute) {
+                dat.minutos = minute;
+                dat.horas = hourofday;
+                String cadena;
+                cadena = " " + dat.horas + ":" + dat.minutos;
+                hora.setText(cadena);
+            }
+        },hr,min,true);
+        tpd.show();
+
+    }
+    @Override
+    public void onOptionsMenuClosed(Menu menu) {
+        getMenuInflater ().inflate (R.menu.menu, menu);
+        super.onOptionsMenuClosed (menu);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater ().inflate (R.menu.menu, menu);
+        return super.onCreateOptionsMenu (menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId () == R.id.read) {
+
+            Integer tamaño = info.listapaciente.size ();
+            if (tamaño == 0) {
+                Toast.makeText (this, "Lista vacía", Toast.LENGTH_SHORT).show ();
+            } else {
+                Intent cambio8 = new Intent (this, ver.class);
+                startActivity (cambio8);
+            }
+        }
+
+        if (item.getItemId () == R.id.create) {
+            Intent cambio8 = new Intent (this, user_info.class);
+            startActivity (cambio8);
+        }
+
+        if (item.getItemId () == R.id.update) {
+
+            Integer tamaño = info.listapaciente.size ();
+            if (tamaño == 0) {
+                Toast.makeText (this, "Lista vacía", Toast.LENGTH_SHORT).show ();
+            } else {
+
+                Intent cambio8 = new Intent (this, modify_user.class);
+                startActivity (cambio8);
+            }
+        }
+        if (item.getItemId () == R.id.delete) {
+            Intent cambio8 = new Intent (this, ver2.class);
+            startActivity (cambio8);
+        }
+        if (item.getItemId () == R.id.logout) {
+            if (archivo.contains ("id_usuario")) {
+                SharedPreferences.Editor editor = archivo.edit ();
+                editor.remove ("id_usuario");
+                editor.commit ();
+                Intent x = new Intent (this, MainActivity.class);
+                startActivity (x);
+                finish ();
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

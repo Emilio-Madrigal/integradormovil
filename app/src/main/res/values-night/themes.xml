@@ -1,7 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Integrador" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.Fecha" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+
+    <style name="Theme.Fecha" parent="Base.Theme.Fecha" />
+    <style name="Theme.DatePickerEnAndroid" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:datePickerDialogTheme">@style/DatePickerStyle</item>
+    </style>
+    <style name="DatePickerStyle" parent="ThemeOverlay.MaterialComponents.Dialog">
+        >
+    </style>
+
 </resources>

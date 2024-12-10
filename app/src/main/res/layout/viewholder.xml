@@ -6,7 +6,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:id="@+id/viewholder"
+        android:id="@+id/nombre"
+        android:textSize="35sp"
+        android:clickable="true"
+        android:contextClickable="true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/apellido"
         android:textSize="35sp"
         android:clickable="true"
         android:contextClickable="true"/>

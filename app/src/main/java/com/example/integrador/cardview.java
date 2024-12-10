@@ -1,48 +1,84 @@
 package com.example.integrador;
 
-import android.content.Context;
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.widget.Toolbar;
 
-import adaptador.adaptadorelim;
-import adaptador.adaptadorver;
 import global.info;
 
+public class cardview extends AppCompatActivity {
 
-public class ver extends AppCompatActivity {
-    RecyclerView rv;
-    Context context;
+    Spinner genero,actividad;
+    Button guardar,llamarB;
+    TextView nombre,apellido,edad,peso,altura,telefono,hora,fecha;
+    String Selecciongenero,Seleccionactividad;
     Toolbar toolbar;
     SharedPreferences archivo;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate (savedInstanceState);
-        EdgeToEdge.enable (this);
-        setContentView (R.layout.activity_ver);
-        toolbar = findViewById(R.id.toolbar);
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_cardview);
+      nombre=findViewById (R.id.nombrec);
+      apellido=findViewById (R.id.apellidoc);
+      edad=findViewById (R.id.edadc);
+      peso=findViewById (R.id.pesoc);
+      altura=findViewById (R.id.alturac);
+      telefono=findViewById (R.id.telefonoc);
+      toolbar=findViewById(R.id.toolbarCard);
         setSupportActionBar(toolbar);
 
-        rv=findViewById(R.id.recyclerview);
-        adaptadorver av = new adaptadorver ();
-        av.context=this;
-        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rv.setLayoutManager(llm);
-        rv.setAdapter(av);
+        llamarB = findViewById(R.id.llamarc);
+
+        llamarB.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+
+            public void onClick(View v) {
+                llamar();
+            }
+        });
+
+        int posicion;
+        posicion=getIntent().getIntExtra("posicion", -1);
+        nombre.setText(info.listapaciente.get(posicion).getNombre ());
+        apellido.setText(info.listapaciente.get(posicion).getApellido ());
+        edad.setText(info.listapaciente.get(posicion).getEdad ());
+        peso.setText(info.listapaciente.get(posicion).getPeso ());
+        altura.setText(info.listapaciente.get(posicion).getAltura ());
+        telefono.setText(info.listapaciente.get(posicion).getTelefono ());
+
     }
+
+    private void llamar() {
+        Intent llamada = new Intent(Intent.ACTION_CALL);
+        llamada.setData(Uri.parse("tel: "+telefono.getText().toString()));
+        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE)!=PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(this,new String[]{
+                Manifest.permission.CALL_PHONE
+        },10);
+        startActivity(llamada);
+    }
+
     @Override
     public void onOptionsMenuClosed(Menu menu) {
         getMenuInflater ().inflate (R.menu.menu, menu);
@@ -101,5 +137,4 @@ public class ver extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

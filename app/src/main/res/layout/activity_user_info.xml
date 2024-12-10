@@ -150,6 +150,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/citahora"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -165,6 +166,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/citafecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

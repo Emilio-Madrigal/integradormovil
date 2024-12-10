@@ -28,6 +28,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import global.info;
 import pojo.cita;
@@ -139,6 +141,9 @@ SharedPreferences archivo;
     }
 
     public void guardardor(){
+
+
+
         paciente unpaciente = new paciente();
 
         
@@ -152,10 +157,37 @@ SharedPreferences archivo;
         unpaciente.setTelefono(telefono.getText().toString());
         unpaciente.setFechac (fecha.getText ().toString ());
         unpaciente.setHorac (hora.getText ().toString ());
+        String nombree,ape,genero,Edad,Altura,Peso,Telefono,Actividad,HoraC,FechaC;
+
+
+
+
+
+        nombree=nombre.getText().toString();
+        ape=apellido.getText().toString();
+        genero=Selecciongenero;
+        Edad=edad.getText().toString();
+        Peso=peso.getText().toString();
+        Altura=altura.getText().toString();
+        Actividad=Seleccionactividad;
+        Telefono=telefono.getText().toString();
+        HoraC=fecha.getText ().toString ();
+        FechaC=hora.getText ().toString ();
 
 
         info.listapaciente.add(unpaciente);
 
+        Map<String,String> params = new HashMap<> ();
+        params.put("nombre",nombree);
+        params.put ("ape",ape);
+        params.put ("genero",genero);
+        params.put ("edad",Edad);
+        params.put ("peso",Peso);
+        params.put ("altura",Altura);
+        params.put ("telefono",Telefono);
+        params.put ("actividad",Actividad);
+        params.put ("hora",HoraC);
+        params.put ("fecha",FechaC);
         
         Toast.makeText(this, "Elementos guardados", Toast.LENGTH_SHORT).show();
 
@@ -169,7 +201,7 @@ SharedPreferences archivo;
         fecha.setText ("");
         hora.setText ("");
 
-        genero.setSelection(0); 
+
         actividad.setSelection(0);
     }
     private void hora() {

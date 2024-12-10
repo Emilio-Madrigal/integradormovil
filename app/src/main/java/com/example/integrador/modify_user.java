@@ -2,6 +2,7 @@ package com.example.integrador;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -17,19 +18,26 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.widget.Toolbar;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
 import global.info;
-import pojo.cita;
 import pojo.paciente;
+import pojo.cita;
 
 public class modify_user extends AppCompatActivity {
     EditText nombre,edad, peso, altura, telefono, hora,fecha;
@@ -40,18 +48,15 @@ public class modify_user extends AppCompatActivity {
     SharedPreferences archivo;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    cita dat=new cita ();
+    cita datos = new cita ();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_modify_user);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        archivo = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
         nombre=findViewById (R.id.nombre);
         modificar = findViewById(R.id.Modificar);
         siguiente=findViewById (R.id.siguiente);
@@ -61,48 +66,11 @@ public class modify_user extends AppCompatActivity {
         altura = findViewById(R.id.altura);
         telefono = findViewById(R.id.telefono);
 
-        actividad = findViewById(R.id.spinner_act);
+        //actividad = findViewById(R.id.spinner_act);
 
-        hora=findViewById (R.id.citahora);
-        fecha=findViewById (R.id.citafecha);
+        //hora=findViewById (R.id.citahora);
+        //fecha=findViewById (R.id.citafecha);
 
-        fecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int dia, mes, ayo;
-                Calendar actual=Calendar.getInstance();
-                dia=actual.get(Calendar.DAY_OF_MONTH);
-                mes=actual.get(Calendar.MONTH);
-                ayo=actual.get(Calendar.YEAR);
-
-                DatePickerDialog dialog = new DatePickerDialog(modify_user.this, android.R.style.Theme_Holo_Dialog_MinWidth,
-                        mDateSetListener,ayo,mes,dia);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-        mDateSetListener= new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int dayofMonth) {
-                dat.dia=dayofMonth;
-                dat.mes=month+1;
-                dat.Year=year;
-                String cadena;
-
-                cadena = " "+dat.dia+"/"+dat.mes+"/"+dat.Year;
-                fecha.setText(cadena);
-            }
-        };
-
-        hora.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View view) {hora();
-
-            }
-        });
-
-
-        // Configuración de los spinners
         actividad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -133,14 +101,87 @@ public class modify_user extends AppCompatActivity {
                 siguiente();
             }
         });
+        hora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                horaC();
+            }
+        });
+        anterior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                anterior();
+            }
+        });
+        modificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actualizar();
+            }
+        });
+        siguiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                siguiente();
+            }
+        });
+        fecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int dia, mes, ayo;
+                Calendar actual=Calendar.getInstance();
+                dia=actual.get(Calendar.DAY_OF_MONTH);
+                mes=actual.get(Calendar.MONTH);
+                ayo=actual.get(Calendar.YEAR);
+
+                DatePickerDialog dialog = new DatePickerDialog(modify_user.this, android.R.style.Theme_Holo_Dialog_MinWidth,
+                        mDateSetListener,ayo,mes,dia);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDateSetListener= new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayofMonth) {
+                datos.dia=dayofMonth;
+                datos.mes=month+1;
+                datos.Year=year;
+                String cadena;
+
+                cadena = " "+datos.dia+"/"+datos.mes+"/"+datos.Year;
+                fecha.setText(cadena);
+            }
+        };
+
     }
+    private void horaC() {
+        int hr, min;
+        Calendar actual = Calendar.getInstance();
+        hr = actual.get(Calendar.HOUR_OF_DAY);
+        min = actual.get(Calendar.MINUTE);
+        TimePickerDialog tpd = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourofday, int minute) {
+                datos.minutos = minute;
+                datos.horas = hourofday;
+                String cadena;
+                cadena = " " + datos.horas + ":" + datos.minutos;
+                hora.setText(cadena);
+            }
+        },hr,min,true);
+        tpd.show();
+    }
+
     private void siguiente() {
         Integer tamaño = info.listapaciente.size();
+        if (tamaño == 0) {
+            Toast.makeText(this, "Lista vacía", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         posicion = (posicion + 1) % tamaño; // si sobrepasa vuelve a cero
-        mostrarpaciente ();
+        //mostrarEquipo();
     }
-
     private void actualizar() {
         paciente pacienteActual = info.listapaciente.get(posicion);
 
@@ -180,24 +221,6 @@ public class modify_user extends AppCompatActivity {
             actividad.setSelection(actividadPosition);
         }
 
-    }
-    private void hora() {
-        int hr, min;
-        Calendar actual = Calendar.getInstance();
-        hr = actual.get(Calendar.HOUR_OF_DAY);
-        min = actual.get(Calendar.MINUTE);
-
-        TimePickerDialog tpd = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hourofday, int minute) {
-                dat.minutos = minute;
-                dat.horas = hourofday;
-                String cadena;
-                cadena = " " + dat.horas + ":" + dat.minutos;
-                hora.setText(cadena);
-            }
-        },hr,min,true);
-        tpd.show();
     }
     @Override
     public void onOptionsMenuClosed(Menu menu) {

@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <EditText
-                    android:id="@+id/nombre"
+                    android:id="@+id/nombrem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Nombre"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <EditText
-                    android:id="@+id/edad"
+                    android:id="@+id/edadm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="edad"
@@ -60,7 +60,7 @@
                 android:orientation="horizontal">
                 <EditText
                     android:inputType="numberDecimal"
-                    android:id="@+id/peso"
+                    android:id="@+id/pesom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Peso (kg)"
@@ -76,7 +76,7 @@
                 android:orientation="horizontal">
                 <EditText
                     android:inputType="number"
-                    android:id="@+id/altura"
+                    android:id="@+id/alturam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="altura(cm)"
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <EditText
-                    android:id="@+id/telefono"
+                    android:id="@+id/telefonom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="telefono"
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <Spinner
-                    android:id="@+id/spinner_act"
+                    android:id="@+id/actm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -127,7 +127,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/citahora"
+                    android:id="@+id/citahoram"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="hora de cita"
@@ -142,7 +142,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/citafecha"
+                    android:id="@+id/citafecham"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="fecha de cita"

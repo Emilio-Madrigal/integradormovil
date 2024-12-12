@@ -2,49 +2,58 @@ package adaptador;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
+import pojo.paciente;
+
 import com.example.integrador.R;
 import com.example.integrador.cardview;
-import com.example.integrador.ver;
-import global.info;
-public class adaptadorver extends RecyclerView.Adapter<adaptadorver.activity> {
-    public Context context;
+public class adaptadorver extends RecyclerView.Adapter<adaptadorver.ViewHolder> {
+    private final Context context;
+    private final List<paciente> dentistasList;
+    public adaptadorver(Context context, List<paciente> dentistasList) {
+        this.context = context;
+        this.dentistasList = dentistasList;
+    }
     @NonNull
     @Override
-    public activity onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = View.inflate(context,R.layout.viewholder, null);
-        activity obj = new activity(v);
-        return obj;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.viewholder, parent, false);
+        return new ViewHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull activity miniactivity, int i) {
-        final int pos = i;
-        miniactivity.nombre.setText(info.listapaciente.get(i).getNombre());
-        miniactivity.apellido.setText(info.listapaciente.get(i).getApellido());
-        miniactivity.nombre.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // Obtener el objeto dentista actual
+        paciente currentDentista = dentistasList.get(position);
+
+        holder.tvNombre.setText(currentDentista.getNombre());
+        holder.tvEspecialidad.setText(currentDentista.getApellido ());
+
+        holder.tvNombre.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent card = new Intent(context, cardview.class);
-                card.putExtra("posicion", pos);
-                context.startActivity(card);
+            public void onClick(View v) {
+                Intent i = new Intent(context, cardview.class);
+                i.putExtra("posicion", position);
+                context.startActivity(i);
             }
         });
     }
     @Override
     public int getItemCount() {
-        return info.listapaciente.size();
+        // devolver el tamaño de la lista
+        return dentistasList.size();
     }
-    public class activity extends RecyclerView.ViewHolder {
-        TextView nombre, apellido;
-        public activity(@NonNull View itemView) {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvNombre, tvEspecialidad;
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nombre = itemView.findViewById(R.id.nombre);
-            apellido=itemView.findViewById (R.id.apellido);
-
+            tvNombre = itemView.findViewById(R.id.nombre);
+            tvEspecialidad = itemView.findViewById(R.id.apellido);
         }
     }
 }

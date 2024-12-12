@@ -1,5 +1,7 @@
 package pojo;
 
+import androidx.annotation.Nullable;
+
 public class paciente {
 
     public String nombre;
@@ -12,6 +14,20 @@ public class paciente {
     public String telefono;
     public String horac;
     public String fechac;
+    public  int ID;
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return super.equals (obj);
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     public String getFechac() {
         return fechac;

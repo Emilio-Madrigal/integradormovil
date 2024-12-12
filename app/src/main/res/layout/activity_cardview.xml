@@ -66,13 +66,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Spinner
+                <TextView
+                    android:text="genero"
                     android:id="@+id/genc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:entries="@array/genero">
-                </Spinner>
+                    >
+                </TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -92,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <EditText
+                <TextView
                     android:inputType="numberDecimal"
                     android:id="@+id/pesoc"
                     android:layout_width="wrap_content"
@@ -101,7 +102,7 @@
                     android:textColorHint="@color/black"
                     >
 
-                </EditText>
+                </TextView>
 
             </LinearLayout>
             <LinearLayout
@@ -146,13 +147,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Spinner
+                <TextView
                     android:id="@+id/actc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:entries="@array/actividad">
-                </Spinner>
+                    android:text="actividad">
+                </TextView>
             </LinearLayout>
 
             <LinearLayout

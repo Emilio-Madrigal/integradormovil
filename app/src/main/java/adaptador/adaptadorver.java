@@ -16,9 +16,9 @@ import com.example.integrador.cardview;
 public class adaptadorver extends RecyclerView.Adapter<adaptadorver.ViewHolder> {
     private final Context context;
     private final List<paciente> dentistasList;
-    public adaptadorver(Context context, List<paciente> dentistasList) {
+    public adaptadorver(Context context, List<paciente> listapa) {
         this.context = context;
-        this.dentistasList = dentistasList;
+        this.dentistasList = listapa;
     }
     @NonNull
     @Override
@@ -28,17 +28,20 @@ public class adaptadorver extends RecyclerView.Adapter<adaptadorver.ViewHolder> 
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // Aumentar el índice de posición
+        int adjustedPosition = position + 1;
+
         // Obtener el objeto dentista actual
         paciente currentDentista = dentistasList.get(position);
 
         holder.tvNombre.setText(currentDentista.getNombre());
-        holder.tvEspecialidad.setText(currentDentista.getApellido ());
+        holder.tvEspecialidad.setText(currentDentista.getApellido());
 
         holder.tvNombre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, cardview.class);
-                i.putExtra("posicion", position);
+                i.putExtra("posicion", adjustedPosition);
                 context.startActivity(i);
             }
         });

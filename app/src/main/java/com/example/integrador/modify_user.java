@@ -12,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -26,6 +28,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.integrador.R;
@@ -45,9 +49,11 @@ public class modify_user extends AppCompatActivity {
     EditText nombrem, edadm, pesom, alturam, telefonom, citahoram, citafecham;
     Spinner actm;
     Button anterior, modificar, siguiente;
-    Integer posicion = -1;
+    Integer posicion = 1;
     Toolbar toolbar;
     String Seleccionactividad;
+    TextView tamano;
+    Integer tamaño;
     SharedPreferences archivo;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     cita dat=new cita ();
@@ -58,6 +64,7 @@ public class modify_user extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_modify_user);
 
+        tamano=findViewById (R.id.tamaño);
         nombrem = findViewById(R.id.nombrem);
         edadm = findViewById(R.id.edadm);
         pesom = findViewById(R.id.pesom);
@@ -142,32 +149,25 @@ public class modify_user extends AppCompatActivity {
                 siguiente();
             }
         });
-    }
-
-    private void siguiente() {
-        Integer tamaño = info.listapaciente.size();
-
-        posicion = (posicion + 1) % tamaño; // Si sobrepasa vuelve a cero
-        mostrarPaciente();
+        mostrarEquipo ();
     }
 
     private void actualizar() {
+        Map<String, String> params = new HashMap<>();
+        params.put("nombre", nombrem.getText ().toString());
+        params.put("edad", edadm.getText().toString());
+        params.put("peso", pesom.getText().toString());
+        params.put("altura", alturam.getText().toString());
+        params.put("telefono", telefonom.getText().toString());
+        params.put("actividad", Seleccionactividad); // Incluido
+        params.put("hora_cita", citahoram.getText().toString());
+        params.put("fecha_cita", citafecham.getText().toString());
+        JSONObject jsonObject = new JSONObject(params);
 
-        HashMap<String, String> datosPaciente = new HashMap<>();
-        datosPaciente.put("nombre", nombrem.getText().toString());
-        datosPaciente.put("edad", edadm.getText().toString());
-        datosPaciente.put("peso", pesom.getText().toString());
-        datosPaciente.put("altura", alturam.getText().toString());
-        datosPaciente.put("telefono", telefonom.getText().toString());
-        datosPaciente.put("actividad", Seleccionactividad);
-        datosPaciente.put("hora_cita", citahoram.getText().toString());
-        datosPaciente.put("fecha_cita", citafecham.getText().toString());
+        String id = String.valueOf(posicion); // Obtén el ID de la posición actual
 
-        JSONObject jsonObject = new JSONObject(datosPaciente);
+        String url = "http://10.0.2.2/bd/actualizar.php?id="+id;
 
-        String idDentistaString = String.valueOf(posicion);
-
-        String url = "http://10.0.2.2/bd/actualizar?id=" + idDentistaString;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject, response -> {
             try {
                 String status = response.getString("status");
@@ -188,38 +188,86 @@ public class modify_user extends AppCompatActivity {
                     error.printStackTrace();
                     Toast.makeText(this, "Error en la solicitud: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e("Actualizar", "Error en la solicitud", error);
-                }
-        );
+                });
+
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
     }
+    private void siguiente() {
+        if (tamaño == 0) {
+            Toast.makeText(this, "Lista vacía", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        posicion = (posicion + 1) % tamaño; // Avanza circularmente a la siguiente posición
+        mostrarEquipo();
+    }
 
     private void anterior() {
-        Integer tamaño = info.listapaciente.size();
-        posicion = (posicion - 1 + tamaño) % tamaño;
-        mostrarPaciente();
-    }
-
-    private void mostrarPaciente() {
-        paciente pacienteActual = info.listapaciente.get(posicion);
-
-        nombrem.setText(pacienteActual.getNombre());
-        edadm.setText(pacienteActual.getEdad());
-        pesom.setText(pacienteActual.getPeso());
-        alturam.setText(pacienteActual.getAltura());
-        telefonom.setText(pacienteActual.getTelefono());
-        citahoram.setText(pacienteActual.getHorac());
-        citafecham.setText(pacienteActual.getFechac());
-
-        // Para el Spinner, selecciona el índice correspondiente
-        String actividad = pacienteActual.getActividad();
-        for (int i = 0; i < actm.getCount(); i++) {
-            if (actm.getItemAtPosition(i).toString().equals(actividad)) {
-                actm.setSelection(i);
-                break;
-            }
+        if (tamaño == 0) {
+            Toast.makeText(this, "Lista vacía", Toast.LENGTH_SHORT).show();
+            return;
         }
+        posicion = (posicion - 1 + tamaño) % tamaño; // Retrocede circularmente a la anterior posición
+        mostrarEquipo();
     }
+
+    private void mostrarEquipo() {
+        String id = String.valueOf(posicion + 1); // Asegúrate de que el ID corresponde al valor en la posición del índice
+
+        String url = "http://10.0.2.2/bd/obtener_unpaciente.php?id=" + id;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("status").equals("success")) {
+                                JSONObject paciente = response.getJSONObject("data");
+                                tamaño = response.getInt("total");
+
+                                // Establecer los datos en los TextView
+                                nombrem.setText(paciente.optString("nombre", ""));
+                                edadm.setText(paciente.optString("edad", ""));
+                                pesom.setText(paciente.optString("peso", ""));
+                                alturam.setText(paciente.optString("altura", ""));
+                                telefonom.setText(paciente.optString("telefono", ""));
+                                citahoram.setText(paciente.optString("calificacion", ""));
+                                citafecham.setText(paciente.optString("hora_apertura", ""));
+
+                                // Obtener la especialidad del paciente desde el servidor
+                                String especialidadActual = paciente.optString("actividad", "");
+
+                                // Buscar la posición de la especialidad en el adaptador del Spinner
+                                ArrayAdapter adapter = (ArrayAdapter) actm.getAdapter();
+                                int position = adapter.getPosition(especialidadActual);
+
+                                // Seleccionar la especialidad en el Spinner
+                                if (position >= 0) { // Asegurarse de que la posición sea válida
+                                    actm.setSelection(position);
+                                }
+
+                                tamano.setText("" + tamaño);
+                            } else {
+                                Toast.makeText(modify_user.this, "No se encontró información del dentista", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(modify_user.this, "Error al procesar los datos", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(modify_user.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        queue.add(request);
+    }
+
+
+
+
     private void hora() {
         int hr, min;
         Calendar actual = Calendar.getInstance();
@@ -255,13 +303,8 @@ public class modify_user extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId () == R.id.read) {
 
-            Integer tamaño = info.listapaciente.size ();
-            if (tamaño == 0) {
-                Toast.makeText (this, "Lista vacía", Toast.LENGTH_SHORT).show ();
-            } else {
                 Intent cambio8 = new Intent (this, ver.class);
                 startActivity (cambio8);
-            }
         }
 
         if (item.getItemId () == R.id.create) {
@@ -270,15 +313,8 @@ public class modify_user extends AppCompatActivity {
         }
 
         if (item.getItemId () == R.id.update) {
-
-            Integer tamaño = info.listapaciente.size ();
-            if (tamaño == 0) {
-                Toast.makeText (this, "Lista vacía", Toast.LENGTH_SHORT).show ();
-            } else {
-
                 Intent cambio8 = new Intent (this, modify_user.class);
                 startActivity (cambio8);
-            }
         }
         if (item.getItemId () == R.id.delete) {
             Intent cambio8 = new Intent (this, ver2.class);

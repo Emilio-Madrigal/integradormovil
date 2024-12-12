@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,11 +74,11 @@ public class cardview extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        int idDentista = intent.getIntExtra("posicion", 1);
-
-        if (idDentista != -1) {
+        int id = intent.getIntExtra("posicion", -1);
+        Log.d("DEBUG_ID", "ID recibido: " + id);
+        if (id != -1) {
             // cargar los datos del dentista desde el servidor
-            cargarDatosDentista(idDentista);
+            cargarDatosDentista(id);
         } else {
             Toast.makeText(this, "Error al obtener el dentista seleccionado", Toast.LENGTH_SHORT).show();
         }
@@ -93,8 +94,8 @@ public class cardview extends AppCompatActivity {
         startActivity(llamada);
     }
     private void cargarDatosDentista(int id) {
-        String url = "http://10.0.2.2/bd/obtener_unpaciente.php?id=" + id;
-
+        String url = "http://10.0.2.2/bd/obtener_unpaciente.php?id=";
+        url=url+id;
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -104,18 +105,18 @@ public class cardview extends AppCompatActivity {
                             if (response.getString("status").equals("success")) {
                                 JSONObject dentista = response.getJSONObject("data");
 
-                                nombre.setText(dentista.optString("nombre", "N/A"));
-                                apellido.setText(dentista.optString("apellido", "N/A"));
-                                genero.setText(dentista.optString("genero", "N/A"));
-                                edad.setText(dentista.optString("edad", "N/A"));
-                                peso.setText(dentista.optString("peso", "N/A"));
-                                altura.setText(dentista.optString("altura", "N/A"));
-                                telefono.setText(dentista.optString("telefono", "N/A"));
-                                actividad.setText(dentista.optString("actividad", "N/A"));
-                                hora.setText(dentista.optString("hora_cita", "N/A"));
-                                fecha.setText(dentista.optString("fecha_cita", "N/A"));
+                                nombre.setText(dentista.getString ("nombre"));
+                                apellido.setText(dentista.getString ("apellido"));
+                                genero.setText(dentista.getString ("genero"));
+                                edad.setText(dentista.getString ("edad"));
+                                peso.setText(dentista.getString ("peso"));
+                                altura.setText(dentista.getString ("altura"));
+                                telefono.setText(dentista.getString ("telefono"));
+                                actividad.setText(dentista.getString ("actividad"));
+                                hora.setText(dentista.getString ("hora_cita"));
+                                fecha.setText(dentista.getString ("fecha_cita"));
                             } else {
-                                Toast.makeText(cardview.this, "No se encontró información del paciente", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(cardview.this, "No se encontró información del dentista", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -131,6 +132,7 @@ public class cardview extends AppCompatActivity {
                 });
         queue.add(request);
     }
+       
 
 
     @Override

@@ -51,7 +51,7 @@ public class ver2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ver2);
-
+        archivo = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

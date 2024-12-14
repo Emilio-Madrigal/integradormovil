@@ -14,6 +14,7 @@
     android:id="@+id/create">
 
 </item>
+
     <item
         android:title="ve tus pacientes"
         android:id="@+id/read">
@@ -26,6 +27,11 @@
     </item>
     <item android:title="elimina pacientes"
         android:id="@+id/delete">
+
+    </item>
+    <item
+        android:title="creador"
+        android:id="@+id/creador">
 
     </item>
 

@@ -2,6 +2,7 @@ package com.example.integrador;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -46,7 +47,7 @@ public class user_info extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
-
+        archivo = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         guardar = findViewById(R.id.guardarB);
@@ -208,6 +209,10 @@ public class user_info extends AppCompatActivity {
 
         if (item.getItemId () == R.id.create) {
             Intent cambio8 = new Intent (this, user_info.class);
+            startActivity (cambio8);
+        }
+        if (item.getItemId () == R.id.creador) {
+            Intent cambio8 = new Intent (this, autor.class);
             startActivity (cambio8);
         }
 

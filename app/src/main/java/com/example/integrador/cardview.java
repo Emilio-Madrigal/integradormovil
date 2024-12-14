@@ -2,6 +2,7 @@ package com.example.integrador;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -49,6 +50,7 @@ public class cardview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cardview);
+        archivo = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
       nombre=findViewById (R.id.nombrec);
       apellido=findViewById (R.id.apellidoc);
       edad=findViewById (R.id.edadc);

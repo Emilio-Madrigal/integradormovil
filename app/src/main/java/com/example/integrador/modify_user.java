@@ -2,6 +2,7 @@ package com.example.integrador;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -63,7 +64,7 @@ public class modify_user extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_modify_user);
-
+        archivo = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
         tamano=findViewById (R.id.tamaño);
         nombrem = findViewById(R.id.nombrem);
         edadm = findViewById(R.id.edadm);
@@ -153,6 +154,7 @@ public class modify_user extends AppCompatActivity {
     }
 
     private void actualizar() {
+
         Map<String, String> params = new HashMap<>();
         params.put("nombre", nombrem.getText ().toString());
         params.put("edad", edadm.getText().toString());
@@ -164,8 +166,8 @@ public class modify_user extends AppCompatActivity {
         params.put("fecha_cita", citafecham.getText().toString());
         JSONObject jsonObject = new JSONObject(params);
 
-        String id = String.valueOf(posicion); // Obtén el ID de la posición actual
-
+        String id = String.valueOf(posicion+1); // Obtén el ID de la posición actual
+        Log.d("Actualizar", "ID enviado al servidor: " + id);
         String url = "http://10.0.2.2/bd/actualizar.php?id="+id;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject, response -> {
@@ -213,7 +215,7 @@ public class modify_user extends AppCompatActivity {
 
     private void mostrarEquipo() {
         String id = String.valueOf(posicion + 1); // Asegúrate de que el ID corresponde al valor en la posición del índice
-
+        Log.d("Actualizar", "ID enviado al servidor: " + id);
         String url = "http://10.0.2.2/bd/obtener_unpaciente.php?id=" + id;
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,

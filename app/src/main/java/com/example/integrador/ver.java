@@ -41,7 +41,7 @@ public class ver extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ver);
-
+        archivo = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
         archivo = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
         rv = findViewById(R.id.recyclerview);
         toolbar = findViewById(R.id.toolbar);

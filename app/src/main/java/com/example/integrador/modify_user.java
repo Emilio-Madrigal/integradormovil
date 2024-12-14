@@ -166,7 +166,7 @@ public class modify_user extends AppCompatActivity {
         params.put("fecha_cita", citafecham.getText().toString());
         JSONObject jsonObject = new JSONObject(params);
 
-        String id = String.valueOf(posicion+1); // Obtén el ID de la posición actual
+        String id = String.valueOf(posicion); // Obtén el ID de la posición actual
         Log.d("Actualizar", "ID enviado al servidor: " + id);
         String url = "http://10.0.2.2/bd/actualizar.php?id="+id;
 
@@ -214,8 +214,8 @@ public class modify_user extends AppCompatActivity {
     }
 
     private void mostrarEquipo() {
-        String id = String.valueOf(posicion + 1); // Asegúrate de que el ID corresponde al valor en la posición del índice
-        Log.d("Actualizar", "ID enviado al servidor: " + id);
+        String id = String.valueOf(posicion); // Asegúrate de que el ID corresponde al valor en la posición del índice
+        Log.d("Mostrar", "ID enviado al servidor: " + id);
         String url = "http://10.0.2.2/bd/obtener_unpaciente.php?id=" + id;
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -250,7 +250,7 @@ public class modify_user extends AppCompatActivity {
 
                                 tamano.setText("" + tamaño);
                             } else {
-                                Toast.makeText(modify_user.this, "No se encontró información del dentista", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(modify_user.this, "No se encontró información del paciente", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -262,12 +262,11 @@ public class modify_user extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(modify_user.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                        Log.e("Mostrar", "Error de conexión", error);
                     }
                 });
         queue.add(request);
     }
-
-
 
 
     private void hora() {

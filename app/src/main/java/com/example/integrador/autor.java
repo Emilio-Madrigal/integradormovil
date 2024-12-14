@@ -6,16 +6,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import androidx.appcompat.widget.Toolbar;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class autor extends AppCompatActivity {
 SharedPreferences archivo;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -26,6 +28,8 @@ SharedPreferences archivo;
             v.setPadding (systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        toolbar=findViewById(R.id.toolbarCard);
+        setSupportActionBar(toolbar);
         archivo = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
     }
     @Override
